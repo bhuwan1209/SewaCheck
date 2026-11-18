@@ -104,7 +104,7 @@ const en = {
   offices: {
     title: "Transport offices",
     lead: "Kathmandu Valley. We list an office only when its name is confirmed on an official source, and we mark every missing detail clearly.",
-    incomplete: "This directory is incomplete. We could not yet confirm other Kathmandu and Lalitpur transport offices from an official source, so they are not listed. Please check with the Department before travelling.",
+    incomplete: "Some Kathmandu Valley offices (such as Thulo Bharyang / Kalanki and Ekantakuna Small/Large Vehicles) are not yet added. Check with the Department before travelling if your office is not listed.",
     district: "District",
     breadcrumb: "Offices",
     address: "Address",
@@ -306,7 +306,7 @@ const ne: Dict = {
   offices: {
     title: "यातायात कार्यालयहरू",
     lead: "काठमाडौं उपत्यका। कार्यालयको नाम आधिकारिक स्रोतमा पुष्टि भएको खण्डमा मात्र हामी सूचीबद्ध गर्छौं, र नभएको प्रत्येक विवरण स्पष्ट रूपमा चिन्ह लगाउँछौं।",
-    incomplete: "यो निर्देशिका अपूर्ण छ। काठमाडौं र ललितपुरका अन्य यातायात कार्यालयहरू आधिकारिक स्रोतबाट पुष्टि गर्न सकिएन, त्यसैले सूचीबद्ध गरिएको छैन। यात्रा गर्नुअघि विभागसँग जाँच गर्नुहोस्।",
+    incomplete: "काठमाडौं उपत्यकाका केही कार्यालयहरू (जस्तै: ठूलो भर्‍याङ / कलंकी र एकान्तकुना साना/ठूला सवारी) अझै थपिएका छैनन्। तपाईंको कार्यालय सूचीमा नभएमा यात्रा गर्नुअघि विभागसँग जाँच गर्नुहोस्।",
     district: "जिल्ला",
     breadcrumb: "कार्यालयहरू",
     address: "ठेगाना",

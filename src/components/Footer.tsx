@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { Logo } from "./Logo";
-import { getDict, type Locale } from "@/i18n/dictionaries";
+import { getDict, href, type Locale } from "@/i18n/dictionaries";
 
 export function Footer({ lang }: { lang: Locale }) {
   const t = getDict(lang).footer;
@@ -9,7 +10,12 @@ export function Footer({ lang }: { lang: Locale }) {
         <Logo variant="light" />
         <p className="mt-2 text-sm">{t.tagline}</p>
         <p className="mt-6 max-w-3xl text-sm leading-relaxed text-navy-100/80">{t.disclaimer}</p>
-        <p className="mt-6 text-xs text-navy-100/60">{t.small}</p>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-xs text-navy-100/70">
+          <p>{t.small}</p>
+          <Link href={href(lang, "/feedback")} className="underline hover:text-white">
+            {t.feedbackLink}
+          </Link>
+        </div>
       </div>
     </footer>
   );

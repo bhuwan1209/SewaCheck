@@ -2,7 +2,7 @@
 
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import { allow, clientHash } from "@/lib/spam";
-import { validateReport } from "@/lib/reports";
+import { containsSensitiveData, validateReport } from "@/lib/reports";
 import { revalidatePath } from "next/cache";
 
 export type FormState = { ok: boolean; message: string };
@@ -83,6 +83,12 @@ export async function sendFeedback(_prev: FormState, formData: FormData): Promis
   const message = String(formData.get("message") ?? "").replace(/\s+/g, " ").trim();
   if (message.length < 5 || message.length > 1000) {
     return { ok: false, message: "Please write between 5 and 1000 characters." };
+  }
+  if (containsSensitiveData(message)) {
+    return {
+      ok: false,
+      message: "Please remove personal numbers, emails, links or passwords before sending.",
+    };
   }
   const hash = await clientHash("feedback");
   if (!hash || !allow(`feedback:${hash}`, 3, 10 * 60_000)) {

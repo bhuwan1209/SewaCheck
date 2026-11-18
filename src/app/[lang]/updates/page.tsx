@@ -7,6 +7,7 @@ import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import { displayLevel, isAging, type ReportCategory, type ReportRow } from "@/lib/reports";
 import { confirmReport } from "@/app/[lang]/report/actions";
 import { getDict, href, isLocale, type Locale } from "@/i18n/dictionaries";
+import { ConfirmButton } from "./ConfirmButton";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -95,7 +96,7 @@ async function UpdatesList({ lang }: { lang: Locale }) {
             </dl>
             <form action={confirmReport} className="mt-3">
               <input type="hidden" name="reportId" value={r.id} />
-              <button className="min-h-11 rounded-full border border-navy-700 px-4 py-1.5 text-sm font-medium text-navy-800 hover:bg-navy-50">{u.sawToo}</button>
+              <ConfirmButton label={u.sawToo} sendingLabel={u.sending} />
             </form>
           </li>
         );

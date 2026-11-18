@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+/* SewaCheck brand colours. Navy = trust, green = "verified / ready". */
+@theme inline {
+  --color-navy-950: #071a33;
+  --color-navy-900: #0b2545;
+  --color-navy-800: #123462;
+  --color-navy-700: #1b4580;
+  --color-navy-100: #e3eaf4;
+  --color-navy-50: #f3f6fb;
+  --color-sewa-green: #0f7a4a; /* dark enough for white text (contrast > 5:1) */
+  --color-sewa-green-light: #e4f4ec;
+  --color-background: #ffffff;
+  --color-foreground: #14213d;
+  --font-sans: var(--font-geist-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-geist-sans), var(--font-deva), system-ui, sans-serif;
+}
+
+/* Clear keyboard focus for accessibility */
+:focus-visible {
+  outline: 3px solid #0f7a4a;
+  outline-offset: 2px;
+}

@@ -151,7 +151,7 @@ create table public.feedback (
 -- Anti-spam triggers (defence in depth; the app also rate-limits)
 -- =====================================================================
 create or replace function public.limit_report_rate()
-returns trigger language plpgsql as $$
+returns trigger language plpgsql security definer set search_path = public, pg_temp as $$
 begin
   if (select count(*) from public.status_reports
         where client_hash = new.client_hash
@@ -168,7 +168,7 @@ create trigger trg_limit_report_rate before insert on public.status_reports
   for each row execute function public.limit_report_rate();
 
 create or replace function public.limit_feedback_rate()
-returns trigger language plpgsql as $$
+returns trigger language plpgsql security definer set search_path = public, pg_temp as $$
 begin
   if (select count(*) from public.feedback
         where client_hash = new.client_hash
@@ -288,5 +288,7 @@ grant select on public.feedback to authenticated;
 grant select on public.report_confirmation_counts to anon, authenticated;
 
 -- Official tables: read-only for the API roles
+grant select on public.sources, public.services, public.offices,
+  public.office_services, public.requirements to anon, authenticated;
 revoke insert, update, delete on public.sources, public.services, public.offices,
   public.office_services, public.requirements from anon, authenticated;

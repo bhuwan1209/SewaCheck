@@ -19,7 +19,8 @@ type Row = ReportRow & {
   category: ReportCategory;
   body: string;
   observed_at: string;
-  offices: { name: string; slug: string } | null;
+  offices: { name: string; name_ne: string | null; slug: string } | null;
+  services: { name: string; name_ne: string | null; slug: string } | null;
 };
 
 async function UpdatesList({ lang }: { lang: Locale }) {
@@ -33,7 +34,7 @@ async function UpdatesList({ lang }: { lang: Locale }) {
   // RLS already hides pending, rejected and expired reports. We also filter here as a second check.
   const { data, error } = await supabase
     .from("status_reports")
-    .select("id, category, body, observed_at, created_at, expires_at, source_type, source_url, verification_level, offices(name, slug)")
+    .select("id, category, body, observed_at, created_at, expires_at, source_type, source_url, verification_level, offices(name, name_ne, slug), services(name, name_ne, slug)")
     .eq("status", "approved")
     .gt("expires_at", new Date().toISOString())
     .order("created_at", { ascending: false })
@@ -61,6 +62,8 @@ async function UpdatesList({ lang }: { lang: Locale }) {
     <ul className="space-y-4">
       {reports.map((r) => {
         const c = countOf.get(r.id) ?? 0;
+        const officeName = lang === "ne" && r.offices?.name_ne ? r.offices.name_ne : r.offices?.name;
+        const serviceName = lang === "ne" && r.services?.name_ne ? r.services.name_ne : r.services?.name;
         return (
           <li key={r.id} className="rounded-xl border border-navy-100 p-5">
             <div className="flex flex-wrap items-center gap-2">
@@ -69,7 +72,22 @@ async function UpdatesList({ lang }: { lang: Locale }) {
             </div>
             <p className="mt-3 text-slate-800">{r.body}</p>
             <dl className="mt-3 space-y-1 text-sm text-slate-600">
-              <div><dt className="inline font-medium">{u.office}: </dt><dd className="inline">{r.offices?.name ?? "—"}</dd></div>
+              <div>
+                <dt className="inline font-medium">{u.office}: </dt>
+                <dd className="inline">
+                  {r.offices?.slug ? (
+                    <Link href={href(lang, `/offices/${r.offices.slug}`)} className="underline">
+                      {officeName ?? "—"}
+                    </Link>
+                  ) : (
+                    officeName ?? "—"
+                  )}
+                </dd>
+              </div>
+              <div>
+                <dt className="inline font-medium">{u.service}: </dt>
+                <dd className="inline">{serviceName ?? u.notSpecified}</dd>
+              </div>
               <div><dt className="inline font-medium">{u.seen}: </dt><dd className="inline"><time dateTime={r.observed_at}>{fmt(r.observed_at)} ({u.nepalTime})</time></dd></div>
               <div><dt className="inline font-medium">{u.sourceLabel}: </dt><dd className="inline">{r.source_type === "official" ? u.official : u.citizen}{r.source_url && (<> <a className="underline" href={r.source_url} target="_blank" rel="noopener noreferrer">{u.link}</a></>)}</dd></div>
               <div><dt className="inline font-medium">{u.expires}: </dt><dd className="inline"><time dateTime={r.expires_at}>{fmt(r.expires_at)}</time>{isAging(r, now) && ` · ${u.aging}`}</dd></div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { ReportForm } from "./ReportForm";
 import { OFFICES } from "@/data/offices";
 import { SERVICES } from "@/data/services";
@@ -32,12 +33,14 @@ export default async function ReportPage({ params }: { params: Promise<{ lang: s
       {ne && <p className="mt-4 text-xs text-slate-600">{t.errorsEnglish}</p>}
 
       <div className="mt-8">
-        <ReportForm
-          lang={lang}
-          enabled={enabled}
-          offices={OFFICES.map((o) => ({ slug: o.slug, name: ne ? o.nameNe : o.name }))}
-          services={SERVICES.map((s) => ({ slug: s.slug, name: ne ? s.nameNe : s.name }))}
-        />
+        <Suspense fallback={<p className="text-slate-600">{getDict(lang).services.loading}</p>}>
+          <ReportForm
+            lang={lang}
+            enabled={enabled}
+            offices={OFFICES.map((o) => ({ slug: o.slug, name: ne ? o.nameNe : o.name }))}
+            services={SERVICES.map((s) => ({ slug: s.slug, name: ne ? s.nameNe : s.name }))}
+          />
+        </Suspense>
       </div>
     </div>
   );

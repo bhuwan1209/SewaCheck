@@ -45,6 +45,23 @@ export default async function ServicePage({ params }: Props) {
         <DetailSection lang={lang} title={t.detail.steps} detail={service.details.steps} />
       </div>
 
+      <section className="mt-8 rounded-xl border border-navy-100 bg-navy-50 p-5">
+        <h2 className="text-lg font-semibold text-navy-900">{t.detail.readinessH}</h2>
+        <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-slate-800">
+          {t.detail.readinessItems.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link href={href(lang, "/offices")} className="inline-flex min-h-11 items-center rounded-lg bg-navy-900 px-4 py-2 text-sm font-semibold text-white hover:bg-navy-700">
+            {t.detail.checkOffices}
+          </Link>
+          <Link href={href(lang, "/updates")} className="inline-flex min-h-11 items-center rounded-lg border border-navy-700 bg-white px-4 py-2 text-sm font-semibold text-navy-900 hover:bg-navy-100">
+            {t.detail.checkUpdates}
+          </Link>
+        </div>
+      </section>
+
       <section className="mt-10">
         <h2 className="text-lg font-semibold text-navy-900">{t.detail.officialSources}</h2>
         {lang === "ne" && <p className="mt-1 text-sm text-slate-600">{t.detail.sourceNotesEnglish}</p>}

@@ -33,6 +33,7 @@ async function Panel({ searchParams }: { searchParams: Promise<{ error?: string 
     login: "Sign-in failed.",
     slow: "Too many attempts. Wait a few minutes.",
     url: "Official reports need an https link on a gov.np website.",
+    update: "Could not update that report. Please try again.",
   };
   const errorBox = error && errors[error] ? <p role="alert" className="mb-4 text-red-700">{errors[error]}</p> : null;
 

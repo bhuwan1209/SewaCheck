@@ -19,6 +19,11 @@ export async function clientHash(purpose: string): Promise<string | null> {
 const hits = new Map<string, number[]>();
 export function allow(key: string, max: number, windowMs: number): boolean {
   const now = Date.now();
+  if (hits.size > 1000) {
+    for (const [k, times] of hits) {
+      if (times.every((t) => now - t >= windowMs)) hits.delete(k);
+    }
+  }
   const recent = (hits.get(key) ?? []).filter((t) => now - t < windowMs);
   if (recent.length >= max) {
     hits.set(key, recent);

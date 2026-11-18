@@ -14,27 +14,36 @@ async function requireModerator() {
   return supabase;
 }
 
+function modPath(formData?: FormData) {
+  const lang = String(formData?.get("lang") ?? "en") === "ne" ? "ne" : "en";
+  return `/${lang}/moderation`;
+}
+
 export async function signIn(formData: FormData) {
-  if (!isSupabaseConfigured()) redirect("/en/moderation");
-  const hash = await clientHash("login");
-  if (!hash || !allow(`login:${hash}`, 5, 10 * 60_000)) redirect("/en/moderation?error=slow");
+  const base = modPath(formData);
+  if (!isSupabaseConfigured()) redirect(base);
+  if (process.env.SPAM_HASH_SALT) {
+    const hash = await clientHash("login");
+    if (!hash || !allow(`login:${hash}`, 5, 10 * 60_000)) redirect(`${base}?error=slow`);
+  }
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({
     email: String(formData.get("email") ?? ""),
     password: String(formData.get("password") ?? ""),
   });
-  redirect(error ? "/en/moderation?error=login" : "/en/moderation");
+  redirect(error ? `${base}?error=login` : base);
 }
 
-export async function signOut() {
+export async function signOut(formData: FormData) {
   if (isSupabaseConfigured()) {
     const supabase = await createClient();
     await supabase.auth.signOut();
   }
-  redirect("/en/moderation");
+  redirect(modPath(formData));
 }
 
 export async function approveReport(formData: FormData) {
+  const base = modPath(formData);
   const supabase = await requireModerator();
   const id = String(formData.get("id") ?? "");
   const officialUrl = String(formData.get("officialUrl") ?? "").trim();
@@ -42,21 +51,27 @@ export async function approveReport(formData: FormData) {
   if (officialUrl) {
     // Only an https link to an official source can make a report "official".
     if (!/^https:\/\/([a-z0-9-]+\.)*gov\.np(\/|$)/i.test(officialUrl)) {
-      redirect("/en/moderation?error=url");
+      redirect(`${base}?error=url`);
     }
     update.source_type = "official";
     update.source_url = officialUrl;
     update.verification_level = "official";
   }
-  await supabase.from("status_reports").update(update).eq("id", id);
+  const { error } = await supabase.from("status_reports").update(update).eq("id", id);
+  if (error) redirect(`${base}?error=update`);
   revalidatePath("/[lang]/moderation", "page");
   revalidatePath("/[lang]/updates", "page");
 }
 
 export async function rejectReport(formData: FormData) {
+  const base = modPath(formData);
   const supabase = await requireModerator();
   const id = String(formData.get("id") ?? "");
   const note = String(formData.get("note") ?? "").slice(0, 300);
-  await supabase.from("status_reports").update({ status: "rejected", moderation_note: note || null }).eq("id", id);
-  revalidatePath("/moderation");
+  const { error } = await supabase
+    .from("status_reports")
+    .update({ status: "rejected", moderation_note: note || null })
+    .eq("id", id);
+  if (error) redirect(`${base}?error=update`);
+  revalidatePath("/[lang]/moderation", "page");
 }

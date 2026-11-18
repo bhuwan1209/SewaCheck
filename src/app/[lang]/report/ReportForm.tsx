@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import { submitReport, type FormState } from "./actions";
 import { getDict, type Locale } from "@/i18n/dictionaries";
 
@@ -20,6 +21,9 @@ export function ReportForm({
   lang: Locale;
 }) {
   const t = getDict(lang).report;
+  const searchParams = useSearchParams();
+  const officeParam = searchParams.get("office") ?? "";
+  const initialOffice = offices.some((o) => o.slug === officeParam) ? officeParam : "";
   const [state, action, pending] = useActionState(submitReport, initial);
   // Both values depend on the current time, so they are filled in the browser
   // after the page loads (not during the server prerender).
@@ -52,7 +56,7 @@ export function ReportForm({
 
       <div>
         <label htmlFor="office" className="font-medium text-navy-900">{t.office}</label>
-        <select id="office" name="office" required className={field} defaultValue="">
+        <select id="office" name="office" required className={field} defaultValue={initialOffice}>
           <option value="" disabled>{t.chooseOffice}</option>
           {offices.map((o) => (
             <option key={o.slug} value={o.slug}>{o.name}</option>

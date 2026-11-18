@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DetailSection } from "@/components/DetailSection";
 import { OfficeMap } from "@/components/OfficeMap";
+import { StatusBadge } from "@/components/StatusBadge";
 import { OFFICES, getOffice } from "@/data/offices";
 import { SOURCES } from "@/data/services";
 import { LOCALES, getDict, href, isLocale } from "@/i18n/dictionaries";
@@ -41,6 +42,28 @@ export default async function OfficePage({ params }: Props) {
         <DetailSection lang={lang} title={t.offices.phone} detail={office.phone} />
         <DetailSection lang={lang} title={t.offices.hours} detail={office.hours} />
       </div>
+
+      <section className="mt-8 rounded-xl border border-navy-100 p-5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="text-lg font-semibold text-navy-900">{t.offices.confirmedServicesH}</h2>
+          <StatusBadge lang={lang} level="none" />
+        </div>
+        <p className="mt-3 text-slate-700">{t.offices.confirmedServicesNote}</p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link
+            href={`${href(lang, "/report")}?office=${encodeURIComponent(office.slug)}`}
+            className="inline-flex min-h-11 items-center rounded-lg bg-sewa-green px-4 py-2 text-sm font-semibold text-white hover:bg-[#0c6a40]"
+          >
+            {t.offices.reportHere}
+          </Link>
+          <Link
+            href={href(lang, "/updates")}
+            className="inline-flex min-h-11 items-center rounded-lg border border-navy-700 px-4 py-2 text-sm font-semibold text-navy-900 hover:bg-navy-50"
+          >
+            {t.offices.viewUpdates}
+          </Link>
+        </div>
+      </section>
 
       <section className="mt-8">
         <h2 className="mb-3 text-lg font-semibold text-navy-900">{t.offices.map}</h2>

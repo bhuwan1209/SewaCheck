@@ -38,6 +38,18 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               {t.home.searchBtn}
             </button>
           </form>
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
+            <span className="text-navy-100/80">{t.home.searchSuggestionsLabel}</span>
+            {t.home.searchSuggestions.map((term) => (
+              <Link
+                key={term}
+                href={`${href(lang, "/services")}?q=${encodeURIComponent(term)}`}
+                className="rounded-full bg-navy-800 px-3 py-1.5 text-xs font-medium text-white hover:bg-navy-700"
+              >
+                {term}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -51,11 +63,33 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <Link href={href(lang, `/services/${s.slug}`)} className="block h-full rounded-xl border border-navy-100 bg-navy-50 p-5 hover:border-sewa-green">
                 <h3 className="font-semibold text-navy-900">{lang === "ne" ? s.nameNe : s.name}</h3>
                 <p className="mt-1 text-sm text-slate-700">{lang === "ne" ? s.summaryNe : s.summary}</p>
-                <span className="mt-4 inline-block text-sm font-medium text-navy-700">{t.home.viewDetails}</span>
+                <p className="mt-3 text-xs font-medium text-slate-600">{t.home.detailsPending}</p>
+                <span className="mt-2 inline-block text-sm font-medium text-navy-700">{t.home.viewDetails}</span>
               </Link>
             </li>
           ))}
         </ul>
+      </section>
+
+      {/* RECENT UPDATES & OFFICES */}
+      <section className="border-t border-navy-100 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-12">
+          <div className="rounded-xl border border-navy-100 bg-navy-50 p-6 sm:p-8">
+            <h2 className="text-xl font-bold text-navy-900 sm:text-2xl">{t.home.updatesH}</h2>
+            <p className="mt-2 max-w-2xl text-sm text-slate-700 sm:text-base">{t.home.updatesLead}</p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link href={href(lang, "/updates")} className="inline-flex min-h-11 items-center rounded-lg bg-navy-900 px-4 py-2 text-sm font-semibold text-white hover:bg-navy-700">
+                {t.home.updatesCta}
+              </Link>
+              <Link href={href(lang, "/offices")} className="inline-flex min-h-11 items-center rounded-lg border border-navy-700 bg-white px-4 py-2 text-sm font-semibold text-navy-900 hover:bg-navy-100">
+                {t.home.officesCta}
+              </Link>
+              <Link href={href(lang, "/report")} className="inline-flex min-h-11 items-center rounded-lg border border-sewa-green bg-white px-4 py-2 text-sm font-semibold text-sewa-green hover:bg-sewa-green-light">
+                {t.home.reportCta}
+              </Link>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* VERIFICATION LEVELS */}

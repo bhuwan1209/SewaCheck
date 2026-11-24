@@ -5,7 +5,7 @@ import { DetailSection } from "@/components/DetailSection";
 import { OfficeMap } from "@/components/OfficeMap";
 import { StatusBadge } from "@/components/StatusBadge";
 import { OFFICES, getOffice } from "@/data/offices";
-import { SOURCES } from "@/data/services";
+import { SOURCES, getService } from "@/data/services";
 import { LOCALES, getDict, href, isLocale } from "@/i18n/dictionaries";
 
 type Props = { params: Promise<{ lang: string; slug: string }> };
@@ -46,9 +46,35 @@ export default async function OfficePage({ params }: Props) {
       <section className="mt-8 rounded-xl border border-navy-100 p-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="text-lg font-semibold text-navy-900">{t.offices.confirmedServicesH}</h2>
-          <StatusBadge lang={lang} level="none" />
+          <StatusBadge lang={lang} level={office.serviceSlugs.length > 0 || office.scopeNote ? "official" : "none"} />
         </div>
-        <p className="mt-3 text-slate-700">{t.offices.confirmedServicesNote}</p>
+        {office.serviceSlugs.length > 0 ? (
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+            {office.serviceSlugs.map((sSlug) => {
+              const svc = getService(sSlug);
+              if (!svc) return null;
+              return (
+                <li key={sSlug}>
+                  <Link
+                    href={href(lang, `/services/${svc.slug}`)}
+                    className="block rounded-lg bg-navy-50 p-3 text-sm font-medium text-navy-900 hover:bg-navy-100"
+                  >
+                    {lang === "ne" ? svc.nameNe : svc.name}
+                    <span className="mt-0.5 block text-xs font-normal text-navy-700">
+                      {t.home.viewDetails}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <p className="mt-3 text-slate-700">
+            {lang === "ne" && office.scopeNoteNe
+              ? office.scopeNoteNe
+              : office.scopeNote ?? t.offices.confirmedServicesNote}
+          </p>
+        )}
         <div className="mt-4 flex flex-wrap gap-3">
           <Link
             href={`${href(lang, "/report")}?office=${encodeURIComponent(office.slug)}`}

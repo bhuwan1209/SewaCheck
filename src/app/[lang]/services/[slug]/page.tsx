@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ChecklistSection } from "@/components/ChecklistSection";
 import { DetailSection } from "@/components/DetailSection";
+import { OFFICES } from "@/data/offices";
 import { SERVICES, SOURCES, getService } from "@/data/services";
 import { LOCALES, getDict, href, isLocale } from "@/i18n/dictionaries";
 
@@ -41,9 +43,44 @@ export default async function ServicePage({ params }: Props) {
 
       <div className="mt-8 space-y-4">
         <DetailSection lang={lang} title={t.detail.docs} detail={service.details.requirements} />
+        {service.details.requirements.state === "verified" && (
+          <ChecklistSection
+            lang={lang}
+            items={
+              lang === "ne" && service.details.requirements.itemsNe
+                ? service.details.requirements.itemsNe
+                : service.details.requirements.items
+            }
+          />
+        )}
         <DetailSection lang={lang} title={t.detail.fees} detail={service.details.fees} />
         <DetailSection lang={lang} title={t.detail.steps} detail={service.details.steps} />
       </div>
+
+      {(() => {
+        const matchingOffices = OFFICES.filter((o) => o.serviceSlugs.includes(service.slug));
+        if (matchingOffices.length === 0) return null;
+        return (
+          <section className="mt-8 rounded-xl border border-navy-100 p-5">
+            <h2 className="text-lg font-semibold text-navy-900">{t.detail.whereToApplyH}</h2>
+            <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+              {matchingOffices.map((o) => (
+                <li key={o.slug}>
+                  <Link
+                    href={href(lang, `/offices/${o.slug}`)}
+                    className="block rounded-lg bg-navy-50 p-3 text-sm font-medium text-navy-900 hover:bg-navy-100"
+                  >
+                    {lang === "ne" ? o.nameNe : o.name}
+                    <span className="mt-0.5 block text-xs font-normal text-slate-600">
+                      {lang === "ne" ? o.districtNe : o.district}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })()}
 
       <section className="mt-8 rounded-xl border border-navy-100 bg-navy-50 p-5">
         <h2 className="text-lg font-semibold text-navy-900">{t.detail.readinessH}</h2>
@@ -53,6 +90,14 @@ export default async function ServicePage({ params }: Props) {
           ))}
         </ul>
         <div className="mt-4 flex flex-wrap gap-3">
+          <a
+            href="https://applydlnew.dotm.gov.np/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center rounded-lg bg-sewa-green px-4 py-2 text-sm font-semibold text-white hover:bg-[#0c6a40]"
+          >
+            {t.detail.applyPortalLabel}
+          </a>
           <Link href={href(lang, "/offices")} className="inline-flex min-h-11 items-center rounded-lg bg-navy-900 px-4 py-2 text-sm font-semibold text-white hover:bg-navy-700">
             {t.detail.checkOffices}
           </Link>

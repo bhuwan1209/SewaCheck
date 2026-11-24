@@ -18,9 +18,20 @@ export type Office = {
   address: Detail;
   phone: Detail;
   hours: Detail;
+  /** Official driving-licence services confirmed for this office. */
+  serviceSlugs: string[];
+  scopeNote?: string;
+  scopeNoteNe?: string;
   /** Only set when an official source gives the position. */
   location: { lat: number; lng: number; sourceId: string } | null;
 };
+
+const ALL_LICENCE_SERVICES = [
+  "driving-licence",
+  "licence-renewal",
+  "written-examination",
+  "trial-examination",
+];
 
 const UNKNOWN: Detail = { state: "unavailable" };
 
@@ -56,6 +67,11 @@ export const OFFICES: Office[] = [
     },
     phone: UNKNOWN,
     hours: standardHours("citizenCharter", "2026-11-17"),
+    serviceSlugs: [],
+    scopeNote:
+      "Central department overseeing policy, smart-card printing, and national online systems. Licence applications, renewals, and exams are processed at provincial Transport Management Offices.",
+    scopeNoteNe:
+      "नीति, स्मार्ट कार्ड छपाइ र राष्ट्रिय अनलाइन प्रणाली हेर्ने केन्द्रीय विभाग। लाइसेन्स आवेदन, नवीकरण र परीक्षा प्रादेशिक यातायात व्यवस्था कार्यालयहरूबाट हुन्छन्।",
     location: null,
   },
   {
@@ -81,6 +97,7 @@ export const OFFICES: Office[] = [
       lastVerified: "2026-11-18",
     },
     hours: standardHours("bhaktapurPortal", "2026-11-18"),
+    serviceSlugs: ALL_LICENCE_SERVICES,
     location: null,
   },
   {
@@ -114,6 +131,7 @@ export const OFFICES: Office[] = [
       lastVerified: "2026-11-18",
     },
     hours: standardHours("ekantakunaContact", "2026-11-18"),
+    serviceSlugs: ALL_LICENCE_SERVICES,
     location: null,
   },
   {
@@ -139,6 +157,7 @@ export const OFFICES: Office[] = [
       lastVerified: "2026-11-18",
     },
     hours: standardHours("chabahilPortal", "2026-11-18"),
+    serviceSlugs: ALL_LICENCE_SERVICES,
     location: null,
   },
   {
@@ -164,6 +183,37 @@ export const OFFICES: Office[] = [
       lastVerified: "2026-11-18",
     },
     hours: standardHours("gurjudharaIntro", "2026-11-18"),
+    serviceSlugs: [],
+    scopeNote:
+      "Handles two-wheeler (motorcycle/scooter) vehicle registration, ownership transfer, bluebook renewal, and vehicle tax — not driving licences.",
+    scopeNoteNe:
+      "दुई पाङ्ग्रे (मोटरसाइकल/स्कुटर) सवारी दर्ता, नामसारी, ब्लूबुक नवीकरण र सवारी कर सम्बन्धी कार्यालय — सवारी चालक अनुमतिपत्र (लाइसेन्स) होइन।",
+    location: null,
+  },
+  {
+    slug: "kalanki-thulobharyang",
+    name: "Transport Management Office, Kalanki (Thulo Bharyang)",
+    nameNe: "यातायात व्यवस्था कार्यालय कलंकी, ठूलोभर्‍याङ",
+    kind: "office",
+    district: "Kathmandu",
+    districtNe: "काठमाडौं",
+    sourceIds: ["kalankiPortal"],
+    address: {
+      state: "verified",
+      items: ["Thulo Bharyang, Nagarjun-03, Kathmandu"],
+      itemsNe: ["ठूलोभर्‍याङ, नागार्जुन - ०३, काठमाडौं"],
+      sourceId: "kalankiPortal",
+      lastVerified: "2026-11-18",
+    },
+    phone: {
+      state: "verified",
+      items: ["Phone: +977 1-5249118", "Email: tmoKalanki@bagamati.gov.np"],
+      itemsNe: ["फोन: +९७७ १-५२४९११८", "इमेल: tmoKalanki@bagamati.gov.np"],
+      sourceId: "kalankiPortal",
+      lastVerified: "2026-11-18",
+    },
+    hours: standardHours("kalankiPortal", "2026-11-18"),
+    serviceSlugs: ALL_LICENCE_SERVICES,
     location: null,
   },
 ];

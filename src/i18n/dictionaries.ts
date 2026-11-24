@@ -91,6 +91,11 @@ const en = {
     ],
     checkOffices: "Check transport offices",
     checkUpdates: "Check recent updates",
+    checklistTitle: "Document readiness checklist",
+    checklistProgress: (done: number, total: number) => `${done} of ${total} ready`,
+    checklistReady: "All listed items checked",
+    whereToApplyH: "Kathmandu Valley offices handling this service",
+    applyPortalLabel: "Official online application portal (applydlnew.dotm.gov.np)",
   },
   services: {
     title: "Transport services",
@@ -104,7 +109,7 @@ const en = {
   offices: {
     title: "Transport offices",
     lead: "Kathmandu Valley. We list an office only when its name is confirmed on an official source, and we mark every missing detail clearly.",
-    incomplete: "Some Kathmandu Valley offices (such as Thulo Bharyang / Kalanki and Ekantakuna Small/Large Vehicles) are not yet added. Check with the Department before travelling if your office is not listed.",
+    incomplete: "Some offices (such as Ekantakuna Small/Large Vehicles) and verified map pins are still being added. Check with the Department before travelling if your office is not listed.",
     district: "District",
     breadcrumb: "Offices",
     address: "Address",
@@ -293,6 +298,11 @@ const ne: Dict = {
     ],
     checkOffices: "यातायात कार्यालयहरू हेर्नुहोस्",
     checkUpdates: "हालका अद्यावधिक हेर्नुहोस्",
+    checklistTitle: "कागजात तयारी सूची",
+    checklistProgress: (done: number, total: number) => `${total} मध्ये ${done} तयार`,
+    checklistReady: "सबै सूचीबद्ध सामग्री जाँचियो",
+    whereToApplyH: "यो सेवा दिने काठमाडौं उपत्यकाका कार्यालयहरू",
+    applyPortalLabel: "आधिकारिक अनलाइन आवेदन पोर्टल (applydlnew.dotm.gov.np)",
   },
   services: {
     title: "यातायात सेवाहरू",
@@ -306,7 +316,7 @@ const ne: Dict = {
   offices: {
     title: "यातायात कार्यालयहरू",
     lead: "काठमाडौं उपत्यका। कार्यालयको नाम आधिकारिक स्रोतमा पुष्टि भएको खण्डमा मात्र हामी सूचीबद्ध गर्छौं, र नभएको प्रत्येक विवरण स्पष्ट रूपमा चिन्ह लगाउँछौं।",
-    incomplete: "काठमाडौं उपत्यकाका केही कार्यालयहरू (जस्तै: ठूलो भर्‍याङ / कलंकी र एकान्तकुना साना/ठूला सवारी) अझै थपिएका छैनन्। तपाईंको कार्यालय सूचीमा नभएमा यात्रा गर्नुअघि विभागसँग जाँच गर्नुहोस्।",
+    incomplete: "केही कार्यालयहरू (जस्तै: एकान्तकुना साना/ठूला सवारी) र प्रमाणित नक्सा पिनहरू अझै थपिँदैछन्। तपाईंको कार्यालय सूचीमा नभएमा यात्रा गर्नुअघि विभागसँग जाँच गर्नुहोस्।",
     district: "जिल्ला",
     breadcrumb: "कार्यालयहरू",
     address: "ठेगाना",

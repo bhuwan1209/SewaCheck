@@ -90,14 +90,16 @@ export default async function ServicePage({ params }: Props) {
           ))}
         </ul>
         <div className="mt-4 flex flex-wrap gap-3">
-          <a
-            href="https://applydlnew.dotm.gov.np/login"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center rounded-lg bg-sewa-green px-4 py-2 text-sm font-semibold text-white hover:bg-[#0c6a40]"
-          >
-            {t.detail.applyPortalLabel}
-          </a>
+          {service.sector === "transport" && service.slug !== "bluebook-renewal" && (
+            <a
+              href="https://applydlnew.dotm.gov.np/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center rounded-lg bg-sewa-green px-4 py-2 text-sm font-semibold text-white hover:bg-[#0c6a40]"
+            >
+              {t.detail.applyPortalLabel}
+            </a>
+          )}
           <Link href={href(lang, "/offices")} className="inline-flex min-h-11 items-center rounded-lg bg-navy-900 px-4 py-2 text-sm font-semibold text-white hover:bg-navy-700">
             {t.detail.checkOffices}
           </Link>

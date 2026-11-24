@@ -57,7 +57,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <section id="services" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-14">
         <h2 className="text-2xl font-bold text-navy-900 sm:text-3xl">{t.home.servicesH}</h2>
         <p className="mt-2 max-w-2xl text-slate-700">{t.home.servicesLead}</p>
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s) => {
             const hasVerified =
               s.details.requirements.state === "verified" ||
@@ -66,7 +66,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             return (
               <li key={s.slug}>
                 <Link href={href(lang, `/services/${s.slug}`)} className="block h-full rounded-xl border border-navy-100 bg-navy-50 p-5 hover:border-sewa-green">
-                  <h3 className="font-semibold text-navy-900">{lang === "ne" ? s.nameNe : s.name}</h3>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-navy-700">
+                    {t.sectors[s.sector]}
+                  </p>
+                  <h3 className="mt-1 font-semibold text-navy-900">{lang === "ne" ? s.nameNe : s.name}</h3>
                   <p className="mt-1 text-sm text-slate-700">{lang === "ne" ? s.summaryNe : s.summary}</p>
                   <div className="mt-3">
                     {hasVerified ? (

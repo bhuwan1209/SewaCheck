@@ -115,6 +115,70 @@ export const SOURCES: Record<string, Source> = {
     lastChecked: "2026-11-24",
     note: "Confirms online renewal steps via applydlnew.dotm.gov.np (OTP, fetch licence, appointment, digital uploads, ConnectIPS/eSewa/Khalti/bank payment, and biometric visit).",
   },
+  gurjudharaBluebook: {
+    id: "gurjudharaBluebook",
+    title: "Bluebook Renewal — TMO (Motorcycle), Gurjudhara",
+    url: "https://mosa.bagamati.gov.np/pages/bluebook-renewal/",
+    publisher: "Transport Management Office (Motorcycle), Gurjudhara, Bagmati Province",
+    lastChecked: "2026-11-24",
+    note: "Official page reachable (200 OK) for two-wheeler bluebook renewal.",
+  },
+  passportPortal: {
+    id: "passportPortal",
+    title: "Department of Passports — Official Website",
+    url: "https://nepalpassport.gov.np/",
+    publisher: "Department of Passports, Government of Nepal",
+    lastChecked: "2026-11-24",
+    note: "Confirms Tripureshwor Kathmandu address and enquiry hotline (+977 1-5970330).",
+  },
+  passportDocs: {
+    id: "passportDocs",
+    title: "Where to Apply & Required Documents for e-Passport",
+    url: "https://nepalpassport.gov.np/en/process/process-20",
+    publisher: "Department of Passports, Government of Nepal",
+    lastChecked: "2026-11-24",
+    note: "Confirms regular DAO/AAO (10–30 days) vs Department of Passports Tripureshwor emergency (~2 working days), and required barcode/QR application form + original citizenship.",
+  },
+  passportFees: {
+    id: "passportFees",
+    title: "Revenue for Passport — Department of Passports",
+    url: "https://nepalpassport.gov.np/en/process/process-25",
+    publisher: "Department of Passports, Government of Nepal",
+    lastChecked: "2026-11-24",
+    note: "Confirms official Department of Passports revenue schedule (NPR 12,000/20,000 fast-track, minor rates, lost/damaged rates, free error correction).",
+  },
+  donidcrPortal: {
+    id: "donidcrPortal",
+    title: "Department of National ID and Civil Registration (DoNIDCR)",
+    url: "https://donidcr.gov.np/",
+    publisher: "Department of National ID and Civil Registration, Government of Nepal",
+    lastChecked: "2026-11-24",
+    note: "Confirms Singhadurbar Kathmandu address, Narayanhiti contact (01-4500079), toll-free 1147, and Mon–Fri office hours.",
+  },
+  nidCitizenPortal: {
+    id: "nidCitizenPortal",
+    title: "National ID Citizen Portal (Pre-enrollment & Status)",
+    url: "https://citizenportal.donidcr.gov.np/en",
+    publisher: "Department of National ID and Civil Registration, Government of Nepal",
+    lastChecked: "2026-11-24",
+    note: "Official citizen portal for National ID online pre-enrollment and status checking.",
+  },
+  daoKathmandu: {
+    id: "daoKathmandu",
+    title: "District Administration Office, Kathmandu — Citizenship Documents",
+    url: "https://daokathmandu.moha.gov.np/en/post/na-pa-l-na-gara-kata-ka-pa-rama-naepata-ra-bna-una-ca-ha-na-ka-gaja-tahara",
+    publisher: "District Administration Office, Kathmandu (Ministry of Home Affairs)",
+    lastChecked: "2026-11-24",
+    note: "Confirms Babarmahal address, citizenship records phone (01-5971880), Mon–Fri 9:00–17:00 hours, and links to official नागरिकता_कागजात.PDF.",
+  },
+  irdPortal: {
+    id: "irdPortal",
+    title: "Inland Revenue Department (IRD) — Official Portal",
+    url: "https://ird.gov.np/",
+    publisher: "Inland Revenue Department, Government of Nepal",
+    lastChecked: "2026-11-24",
+    note: "Confirms Lazimpat Kathmandu address, phone (01-5970081), Mon–Fri hours, and online Personal PAN generation via National ID number.",
+  },
   ekantakunaContact: {
     id: "ekantakunaContact",
     title: "Contact Us — TMO (Driving Licence), Ekantakuna (Lalitpur)",
@@ -161,8 +225,11 @@ export type Detail =
       lastVerified: string; // YYYY-MM-DD
     };
 
+export type Sector = "transport" | "passport" | "identity" | "tax";
+
 export type Service = {
   slug: string;
+  sector: Sector;
   name: string;
   nameNe: string;
   summaryNe: string;
@@ -183,6 +250,7 @@ const UNKNOWN: Detail = { state: "unavailable" };
 export const SERVICES: Service[] = [
   {
     slug: "driving-licence",
+    sector: "transport",
     name: "Driving licence",
     nameNe: "सवारी चालक अनुमतिपत्र (लाइसेन्स)",
     summaryNe: "नयाँ सवारी चालक अनुमतिपत्रका लागि आवेदन दिने बारेको जानकारी।",
@@ -245,6 +313,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "licence-renewal",
+    sector: "transport",
     name: "Licence renewal",
     nameNe: "लाइसेन्स नवीकरण",
     summaryNe: "हालको सवारी चालक अनुमतिपत्र नवीकरण गर्ने बारेको जानकारी।",
@@ -313,6 +382,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "written-examination",
+    sector: "transport",
     name: "Written examination",
     nameNe: "लिखित परीक्षा",
     summaryNe: "सवारी चालक अनुमतिपत्रको लिखित (सैद्धान्तिक) परीक्षा बारेको जानकारी।",
@@ -343,6 +413,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "trial-examination",
+    sector: "transport",
     name: "Trial examination",
     nameNe: "ट्रायल (प्रयोगात्मक) परीक्षा",
     summaryNe: "सवारी चालक अनुमतिपत्रको प्रयोगात्मक (ट्रायल) परीक्षा बारेको जानकारी।",
@@ -366,6 +437,145 @@ export const SERVICES: Service[] = [
         ],
         sourceId: "bhaktapurWrittenResult",
         lastVerified: "2026-11-18",
+      },
+    },
+  },
+  {
+    slug: "bluebook-renewal",
+    sector: "transport",
+    name: "Two-wheeler bluebook renewal & tax",
+    nameNe: "मोटरसाइकल ब्लूबुक नवीकरण तथा कर",
+    summary: "Information about two-wheeler vehicle registration, bluebook renewal, and tax in Kathmandu Valley.",
+    summaryNe: "काठमाडौं उपत्यकामा दुई पाङ्ग्रे सवारी दर्ता, ब्लूबुक नवीकरण र सवारी कर बारेको जानकारी।",
+    keywords: ["bluebook", "vehicle", "motorcycle", "scooter", "tax", "registration", "ब्लूबुक", "कर", "मोटरसाइकल"],
+    sourceIds: ["gurjudharaBluebook", "gurjudharaIntro"],
+    details: { requirements: UNKNOWN, fees: UNKNOWN, steps: UNKNOWN },
+  },
+  {
+    slug: "epassport-application",
+    sector: "passport",
+    name: "e-Passport (New & Renewal)",
+    nameNe: "ई-पासपोर्ट (नयाँ तथा नवीकरण)",
+    summary: "Apply for or renew a Nepali e-Passport (regular at DAO or fast-track at Department of Passports, Tripureshwor).",
+    summaryNe: "नेपाली ई-पासपोर्ट (नियमित जिल्ला प्रशासन कार्यालय वा द्रुत सेवा राहदानी विभाग, त्रिपुरेश्वर) सम्बन्धी जानकारी।",
+    keywords: ["passport", "epassport", "rahani", "tripureshwor", "राहदानी", "पासपोर्ट", "त्रिपुरेश्वर"],
+    sourceIds: ["passportDocs", "passportFees", "passportPortal"],
+    details: {
+      requirements: {
+        state: "verified",
+        items: [
+          "Copy of the online pre-enrollment application form with barcode and QR code (printed preferred, or digital)",
+          "Original Nepali Citizenship Certificate (plus Minor Identity Card & parents' citizenship for minors under 16)",
+          "National Identity Card (NID) or National Identity Number (NIN) for applicants aged 16+ in Nepal",
+          "Original current or expired passport (if renewing)",
+        ],
+        itemsNe: [
+          "बारकोड र QR कोड सहितको अनलाइन आवेदन फारमको प्रति (प्रिन्ट गरिएको वा डिजिटल)",
+          "सक्कल नेपाली नागरिकता प्रमाणपत्र (१६ वर्षमुनिका लागि नाबालक परिचयपत्र र अभिभावकको नागरिकता)",
+          "नेपालभित्र १६ वर्ष माथिका आवेदकका लागि राष्ट्रिय परिचयपत्र (NID) वा नम्बर",
+          "नवीकरणका लागि हालको वा म्याद सकिएको सक्कल राहदानी",
+        ],
+        sourceId: "passportDocs",
+        lastVerified: "2026-11-24",
+      },
+      fees: {
+        state: "verified",
+        items: [
+          "Department of Passports (Tripureshwor — Emergency / ~2 working days): 34-page NPR 12,000 | 66-page NPR 20,000",
+          "Regular service at DAO / AAO (10–30 days): additional emergency fee (+NPR 7,000 for 34-page / +NPR 12,000 for 66-page) does not apply",
+          "Minors under 10 (Department of Passports): 34-page NPR 9,500 | 66-page NPR 14,500",
+          "Lost, stolen, or damaged passport: 34-page NPR 17,000 | 66-page NPR 25,000 (minors under 10: NPR 14,500 / NPR 19,500)",
+          "Official error correction: Free of cost",
+        ],
+        itemsNe: [
+          "राहदानी विभाग, त्रिपुरेश्वर (द्रुत सेवा / करिब २ कार्यदिन): ३४ पृष्ठ रु. १२,००० | ६६ पृष्ठ रु. २०,०००",
+          "जिल्ला/इलाका प्रशासन कार्यालय (नियमित सेवा, १०–३० दिन): द्रुत सेवाको अतिरिक्त शुल्क (+रु. ७,००० / +रु. १२,०००) लाग्दैन",
+          "१० वर्षमुनिका नाबालक (राहदानी विभाग): ३४ पृष्ठ रु. ९,५०० | ६६ पृष्ठ रु. १४,५००",
+          "हराएको, च्यातिएको वा बिग्रिएको राहदानी: ३४ पृष्ठ रु. १७,००० | ६६ पृष्ठ रु. २५,०००",
+          "सरकारी त्रुटि सच्याउन: निःशुल्क",
+        ],
+        sourceId: "passportFees",
+        lastVerified: "2026-11-24",
+      },
+      steps: {
+        state: "verified",
+        items: [
+          "Fill out the online pre-enrollment form via nepalpassport.gov.np to get your barcode/QR form and appointment.",
+          "Choose regular service (your issuing DAO/AAO, ~10–30 days) or emergency service (Department of Passports, Tripureshwor, ~2 working days).",
+          "Pay the revenue fee and visit the office in person with original documents for biometric capture.",
+        ],
+        itemsNe: [
+          "nepalpassport.gov.np मार्फत अनलाइन आवेदन फारम भरी बारकोड/QR कोड र अपोइन्टमेन्ट मिति लिनुहोस्।",
+          "नियमित सेवा (नागरिकता जारी भएको जिल्ला/इलाका प्रशासन कार्यालय, १०–३० दिन) वा द्रुत सेवा (राहदानी विभाग, त्रिपुरेश्वर, करिब २ कार्यदिन) छान्नुहोस्।",
+          "राजस्व बुझाई सक्कल कागजात सहित तोकिएको मितिमा बायोमेट्रिकका लागि कार्यालयमा उपस्थित हुनुहोस्।",
+        ],
+        sourceId: "passportDocs",
+        lastVerified: "2026-11-24",
+      },
+    },
+  },
+  {
+    slug: "national-id",
+    sector: "identity",
+    name: "National Identity Card (NID)",
+    nameNe: "राष्ट्रिय परिचयपत्र (NID)",
+    summary: "Online pre-enrollment, biometric registration, and status check for Nepal's National Identity Card.",
+    summaryNe: "राष्ट्रिय परिचयपत्रको अनलाइन प्रि-एनरोलमेन्ट, बायोमेट्रिक दर्ता र स्थिति जाँच बारेको जानकारी।",
+    keywords: ["nid", "national id", "parichayapatra", "donidcr", "राष्ट्रिय परिचयपत्र", "परिचयपत्र"],
+    sourceIds: ["nidCitizenPortal", "donidcrPortal"],
+    details: {
+      requirements: UNKNOWN,
+      fees: UNKNOWN,
+      steps: {
+        state: "verified",
+        items: [
+          "Submit online pre-enrollment or check status at https://citizenportal.donidcr.gov.np/en.",
+          "Visit your District Administration Office (DAO) or designated enrollment station (such as Narayanhiti) in person for biometrics.",
+        ],
+        itemsNe: [
+          "https://citizenportal.donidcr.gov.np/en मा अनलाइन प्रि-एनरोलमेन्ट फारम भर्नुहोस् वा स्थिति जाँच गर्नुहोस्।",
+          "बायोमेट्रिक दर्ताका लागि सम्बन्धित जिल्ला प्रशासन कार्यालय वा तोकिएको दर्ता केन्द्र (जस्तै नारायणहिटी) मा स्वयं उपस्थित हुनुहोस्।",
+        ],
+        sourceId: "nidCitizenPortal",
+        lastVerified: "2026-11-24",
+      },
+    },
+  },
+  {
+    slug: "citizenship-certificate",
+    sector: "identity",
+    name: "Citizenship certificate",
+    nameNe: "नेपाली नागरिकता प्रमाणपत्र",
+    summary: "Official document notices and District Administration Office contact information for Nepali citizenship.",
+    summaryNe: "नेपाली नागरिकता प्रमाणपत्र सम्बन्धी आधिकारिक सूचना र जिल्ला प्रशासन कार्यालयको सम्पर्क विवरण।",
+    keywords: ["citizenship", "nagarikta", "dao", "babarmahal", "नागरिकता", "जिल्ला प्रशासन"],
+    sourceIds: ["daoKathmandu"],
+    details: { requirements: UNKNOWN, fees: UNKNOWN, steps: UNKNOWN },
+  },
+  {
+    slug: "personal-pan",
+    sector: "tax",
+    name: "Personal PAN registration",
+    nameNe: "व्यक्तिगत स्थायी लेखा नम्बर (PAN)",
+    summary: "Information about Personal PAN registration and online generation using your National ID number via IRD.",
+    summaryNe: "आन्तरिक राजस्व विभाग (IRD) मार्फत व्यक्तिगत स्थायी लेखा नम्बर (PAN) दर्ता र अनलाइन सिर्जना सम्बन्धी जानकारी।",
+    keywords: ["pan", "tax", "ird", "lazimpat", "प्यान", "स्थायी लेखा", "कर"],
+    sourceIds: ["irdPortal"],
+    details: {
+      requirements: UNKNOWN,
+      fees: UNKNOWN,
+      steps: {
+        state: "verified",
+        items: [
+          "Visit the Inland Revenue Department official portal (https://ird.gov.np/) to access the Taxpayer Portal.",
+          "Individuals with a National ID (NID) number can generate a Personal PAN automatically online through IRD's system.",
+        ],
+        itemsNe: [
+          "आन्तरिक राजस्व विभागको आधिकारिक वेबसाइट (https://ird.gov.np/) मार्फत Taxpayer Portal खोल्नुहोस्।",
+          "राष्ट्रिय परिचयपत्र (NID) नम्बर भएका व्यक्तिले IRD को प्रणालीबाट अनलाइनमार्फत स्वचालित रूपमा व्यक्तिगत PAN सिर्जना गर्न सक्नुहुन्छ।",
+        ],
+        sourceId: "irdPortal",
+        lastVerified: "2026-11-24",
       },
     },
   },

@@ -31,6 +31,7 @@ const en = {
     disclaimer:
       "SewaCheck is an independent project. It is not a government website and is not affiliated with any government office. Always confirm important details with the official office or its official channel before travelling. Citizen reports are never official announcements.",
     feedbackLink: "Send feedback",
+    privacyLink: "Privacy policy",
     small: "SewaCheck · Early concept · Kathmandu Valley, Nepal",
   },
   status: {
@@ -222,6 +223,28 @@ const en = {
     submit: "Send feedback",
     sending: "Sending…",
   },
+  privacy: {
+    title: "Privacy Policy",
+    lead: "SewaCheck is designed to help citizens prepare for public-service visits without collecting personal identity documents.",
+    sections: [
+      {
+        heading: "1. What we do NOT collect",
+        body: "SewaCheck never asks for or stores your citizenship number, driving licence number, passport number, passwords, or scanned identity documents. Our reporting form automatically blocks submissions containing long ID/phone numbers, emails, or links.",
+      },
+      {
+        heading: "2. What is stored when you submit a report or feedback",
+        body: "When you voluntarily submit a status report or site feedback, we store your chosen office/service, category, observation time, message text, and a one-way salted SHA-256 hash used solely for spam/rate-limit protection and duplicate confirmation checks. Raw IP addresses are not stored.",
+      },
+      {
+        heading: "3. Document checklists & local browser state",
+        body: "Document readiness checklists on service pages run entirely in your browser and are never transmitted to or saved on our servers.",
+      },
+      {
+        heading: "4. Independent platform",
+        body: "SewaCheck is an independent project and is not affiliated with the Government of Nepal. Official information links directly to gov.np sources.",
+      },
+    ],
+  },
   notFound: "Page not found",
 };
 
@@ -245,6 +268,7 @@ const ne: Dict = {
     disclaimer:
       "सेवाचेक एउटा स्वतन्त्र परियोजना हो। यो सरकारी वेबसाइट होइन र कुनै सरकारी कार्यालयसँग आबद्ध छैन। यात्रा गर्नुअघि महत्त्वपूर्ण विवरण सम्बन्धित कार्यालय वा यसको आधिकारिक माध्यमबाट पुष्टि गर्नुहोस्। नागरिकका रिपोर्टहरू कहिल्यै आधिकारिक घोषणा होइनन्।",
     feedbackLink: "प्रतिक्रिया पठाउनुहोस्",
+    privacyLink: "गोपनीयता नीति",
     small: "सेवाचेक · प्रारम्भिक अवधारणा · काठमाडौं उपत्यका, नेपाल",
   },
   status: {
@@ -435,6 +459,28 @@ const ne: Dict = {
     help: "५ देखि १००० अक्षर। नागरिकता नम्बर, लाइसेन्स नम्बर, फोन नम्बर वा पासवर्ड कहिल्यै नलेख्नुहोस्।",
     submit: "प्रतिक्रिया पठाउनुहोस्",
     sending: "पठाइँदैछ…",
+  },
+  privacy: {
+    title: "गोपनीयता नीति",
+    lead: "सेवाचेकले व्यक्तिगत परिचयपत्र संकलन नगरी नागरिकलाई सरकारी कार्यालय जानुअघि तयारी गर्न सहयोग गर्छ।",
+    sections: [
+      {
+        heading: "१. हामी के संकलन गर्दैनौं",
+        body: "सेवाचेकले तपाईंको नागरिकता नम्बर, लाइसेन्स नम्बर, राहदानी नम्बर, पासवर्ड वा परिचयपत्र कहिल्यै माग्दैन र भण्डारण गर्दैन। रिपोर्ट फारमले लामो नम्बर, इमेल र लिङ्क स्वतः रोक्छ।",
+      },
+      {
+        heading: "२. रिपोर्ट वा प्रतिक्रिया पठाउँदा के सुरक्षित हुन्छ",
+        body: "तपाईंले स्वेच्छाले रिपोर्ट वा प्रतिक्रिया पठाउँदा कार्यालय/सेवा, श्रेणी, समय, सन्देश र स्प्याम सुरक्षाका लागि एकतर्फी salted SHA-256 ह्यास मात्र सुरक्षित गरिन्छ। वास्तविक IP ठेगाना सुरक्षित गरिँदैन।",
+      },
+      {
+        heading: "३. कागजात तयारी सूची",
+        body: "सेवा पृष्ठमा रहेका कागजात तयारी सूचीहरू तपाईंको ब्राउजरभित्रै मात्र चल्छन् र सर्भरमा पठाइँदैनन्।",
+      },
+      {
+        heading: "४. स्वतन्त्र प्लेटफर्म",
+        body: "सेवाचेक एउटा स्वतन्त्र परियोजना हो र नेपाल सरकारसँग आबद्ध छैन। आधिकारिक जानकारी सिधै gov.np स्रोतसँग जोडिएको छ।",
+      },
+    ],
   },
   notFound: "पृष्ठ फेला परेन",
 };
